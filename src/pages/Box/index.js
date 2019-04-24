@@ -25,14 +25,15 @@ export default class Box extends Component {
   subscribeToNewFiles = () => {
     const box = this.props.match.params.id;
     const io = socket("https://jjf-rocket-backend.herokuapp.com/");
+    //const io = socket("http://localhost:3333");
 
     io.emit("connectRoom", box);
 
     io.on("file", data => {
-      /*this.setState({
+      this.setState({
         box: { ...this.state.box, files: [data, ...this.state.box.files] }
-      });*/
-      console.log(data);
+      });
+      //console.log(data);
     });
   };
 
@@ -68,7 +69,7 @@ export default class Box extends Component {
           {this.state.box.files &&
             this.state.box.files.map(file => (
               <li key={file._id}>
-                <a className="fileInfo" href={file.url}>
+                <a className="fileInfo" href={file.url} target="_blank">
                   <MdInsertDriveFile size={24} color="#A5Cfff" />
                   <strong>{file.title}</strong>
                 </a>
